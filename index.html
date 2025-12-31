@@ -2,7 +2,7 @@
 <html lang="hi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>सिद्ध AI पंडित जी - महा कुंडली विश्लेषण</title>
     
     <script src="https://pl28369995.effectivegatecpm.com/96/30/f1/9630f14094984d533ec162a00f08b6ad.js"></script>
@@ -18,38 +18,145 @@
         }
         
         * { box-sizing: border-box; font-family: 'Segoe UI', 'Arial', sans-serif; margin: 0; padding: 0; }
-        body { background: var(--bg); display: flex; justify-content: center; align-items: center; height: 100vh; color: white; overflow: hidden; position: relative; }
+        
+        /* मोबाइल के लिए फुल हाइट फिक्स */
+        html, body { 
+            height: 100%; 
+            width: 100%; 
+            background: var(--bg); 
+            overflow: hidden; 
+            position: fixed; /* स्क्रॉल बाउंस रोकने के लिए */
+        }
 
-        .mandala { position: absolute; width: 300px; opacity: 0.1; animation: rotate 80s linear infinite; z-index: 0; pointer-events: none; top: 20%; left: 50%; transform: translate(-50%, -20%); }
-        @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        body { display: flex; justify-content: center; align-items: center; }
 
-        #app-container { width: 100%; max-width: 500px; height: 100%; display: flex; flex-direction: column; background: rgba(12, 12, 29, 0.9); backdrop-filter: blur(15px); border-left: 1px solid var(--gold); border-right: 1px solid var(--gold); z-index: 1; }
-        .header { background: linear-gradient(to bottom, #ff9933, #ffcc00); color: #331100; padding: 12px; text-align: center; font-weight: 900; font-size: 1.2rem; box-shadow: 0 5px 15px rgba(0,0,0,0.5); text-transform: uppercase; flex-shrink: 0; }
+        .mandala { 
+            position: absolute; 
+            width: 70vw; 
+            max-width: 300px; 
+            opacity: 0.1; 
+            animation: rotate 80s linear infinite; 
+            z-index: 0; 
+            pointer-events: none; 
+            top: 50%; 
+            left: 50%; 
+            transform: translate(-50%, -50%); 
+        }
+        @keyframes rotate { from { transform: translate(-50%, -50%) rotate(0deg); } to { transform: translate(-50%, -50%) rotate(360deg); } }
 
-        /* AD BOX STYLING */
-        .ad-container { width: 100%; text-align: center; background: rgba(0,0,0,0.4); padding: 5px 0; min-height: 60px; flex-shrink: 0; border-bottom: 1px solid rgba(255,204,0,0.2); }
+        #app-container { 
+            width: 100%; 
+            max-width: 500px; 
+            height: 100%; 
+            display: flex; 
+            flex-direction: column; 
+            background: rgba(12, 12, 29, 0.9); 
+            backdrop-filter: blur(15px); 
+            border-left: 1px solid rgba(255, 204, 0, 0.3); 
+            border-right: 1px solid rgba(255, 204, 0, 0.3); 
+            z-index: 1;
+            position: relative;
+        }
 
-        .share-section { padding: 8px; text-align: center; background: rgba(255,255,255,0.05); }
-        .whatsapp-btn { background: var(--whatsapp); color: white; padding: 8px 18px; border-radius: 25px; text-decoration: none; font-weight: bold; font-size: 14px; display: inline-flex; align-items: center; gap: 8px; }
+        .header { 
+            background: linear-gradient(to bottom, #ff9933, #ffcc00); 
+            color: #331100; 
+            padding: env(safe-area-inset-top) 10px 10px 10px; 
+            text-align: center; 
+            font-weight: 900; 
+            font-size: 1.1rem; 
+            box-shadow: 0 2px 10px rgba(0,0,0,0.5); 
+            flex-shrink: 0; 
+        }
 
-        #chat-window { flex: 1; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; scroll-behavior: smooth; }
+        .ad-container { 
+            width: 100%; 
+            overflow: hidden; 
+            background: rgba(0,0,0,0.4); 
+            min-height: 60px; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center;
+            flex-shrink: 0;
+        }
+        
+        /* विज्ञापन को छोटा करने के लिए ताकि मोबाइल में फिट हो */
+        .ad-container iframe { transform: scale(0.8); transform-origin: center; }
+
+        .share-section { padding: 5px; text-align: center; background: rgba(255,255,255,0.05); flex-shrink: 0; }
+        .whatsapp-btn { 
+            background: var(--whatsapp); 
+            color: white; 
+            padding: 6px 15px; 
+            border-radius: 20px; 
+            text-decoration: none; 
+            font-weight: bold; 
+            font-size: 13px; 
+            display: inline-flex; 
+            align-items: center; 
+            gap: 5px; 
+        }
+
+        #chat-window { 
+            flex: 1; 
+            padding: 15px; 
+            overflow-y: auto; 
+            display: flex; 
+            flex-direction: column; 
+            gap: 12px; 
+            -webkit-overflow-scrolling: touch; /* स्मूथ स्क्रॉल */
+        }
+
         .msg-row { display: flex; width: 100%; align-items: flex-start; gap: 8px; animation: slideIn 0.3s ease; }
         .user-row { flex-direction: row-reverse; }
         @keyframes slideIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        .avatar { width: 38px; height: 38px; border-radius: 50%; border: 1px solid var(--gold); overflow: hidden; flex-shrink: 0; background: white;}
+        .avatar { width: 35px; height: 35px; border-radius: 50%; border: 1px solid var(--gold); overflow: hidden; flex-shrink: 0; background: white;}
         .avatar img { width: 100%; height: 100%; object-fit: cover; }
 
-        .msg { max-width: 85%; padding: 12px 15px; border-radius: 18px; font-size: 15px; line-height: 1.6; position: relative; }
+        .msg { max-width: 80%; padding: 10px 14px; border-radius: 15px; font-size: 14px; line-height: 1.5; word-wrap: break-word; }
         .bot { background: var(--bot-bubble); border-top-left-radius: 2px; border: 1px solid rgba(255,204,0,0.3); }
         .user { background: linear-gradient(135deg, #d90429, #8d021f); border-top-right-radius: 2px; }
 
-        .detail-section { margin-top: 10px; font-size: 14px; background: rgba(255,153,51,0.1); padding: 12px; border-radius: 10px; border-left: 4px solid var(--gold); color: #fff; }
-        .upaay-box { margin-top: 12px; color: #ffcc00; font-weight: bold; background: rgba(255,204,0,0.1); padding: 10px; border-radius: 8px; border-left: 4px solid var(--gold); font-size: 14px; }
+        .detail-section { margin-top: 8px; font-size: 13px; background: rgba(255,153,51,0.1); padding: 10px; border-radius: 8px; border-left: 3px solid var(--gold); }
+        .upaay-box { margin-top: 10px; color: #ffcc00; font-weight: bold; background: rgba(255,204,0,0.1); padding: 8px; border-radius: 6px; border-left: 3px solid var(--gold); font-size: 13px; }
 
-        .input-area { padding: 12px; background: #050510; display: flex; gap: 8px; border-top: 1px solid var(--gold); flex-shrink: 0; }
-        input { flex: 1; padding: 12px 18px; border-radius: 25px; border: 1px solid var(--gold); background: #1a1a2e; color: white; outline: none; font-size: 16px; }
-        button { background: var(--gold); border: none; padding: 0 20px; border-radius: 25px; font-weight: bold; color: #000; cursor: pointer; }
+        .input-area { 
+            padding: 10px 10px calc(10px + env(safe-area-inset-bottom)) 10px; 
+            background: #050510; 
+            display: flex; 
+            gap: 8px; 
+            border-top: 1px solid var(--gold); 
+            flex-shrink: 0; 
+        }
+        
+        input { 
+            flex: 1; 
+            padding: 10px 15px; 
+            border-radius: 20px; 
+            border: 1px solid var(--gold); 
+            background: #1a1a2e; 
+            color: white; 
+            outline: none; 
+            font-size: 16px; /* मोबाइल पर जूम रोकने के लिए 16px जरूरी है */
+        }
+        
+        button { 
+            background: var(--gold); 
+            border: none; 
+            padding: 0 15px; 
+            border-radius: 20px; 
+            font-weight: bold; 
+            color: #000; 
+            cursor: pointer; 
+            font-size: 14px;
+        }
+
+        /* छोटे मोबाइल के लिए फिक्स */
+        @media (max-width: 360px) {
+            .msg { max-width: 85%; font-size: 13px; }
+            .header { font-size: 1rem; }
+        }
     </style>
 </head>
 <body>
@@ -68,12 +175,12 @@
     </div>
 
     <div class="share-section">
-        <a id="waLink" href="#" class="whatsapp-btn">🟢 Whatsapp पर शेयर करें</a>
+        <a id="waLink" href="#" class="whatsapp-btn">🟢 WhatsApp पर शेयर करें</a>
     </div>
 
     <div id="chat-window"></div>
 
-    <div class="ad-container" style="border-top: 1px solid var(--gold); border-bottom: none;">
+    <div class="ad-container" style="border-top: 1px solid var(--gold);">
         <script type="text/javascript">
             atOptions = {'key' : '05f7cf478e6056f2505d1e201f281be8','format' : 'iframe','height' : 60,'width' : 468,'params' : {}};
         </script>
@@ -81,7 +188,7 @@
     </div>
     
     <div class="input-area">
-        <input type="text" id="userInput" placeholder="यहाँ लिखें..." autocomplete="off">
+        <input type="text" id="userInput" placeholder="अपना नाम लिखें..." autocomplete="off">
         <button id="sendBtn">भेजें</button>
     </div>
 </div>
@@ -91,36 +198,34 @@
     let userName = "";
     let musicStarted = false;
 
-    // सटीक राशि लिस्ट (English Letters to Rashi)
     function getRashi(name) {
         let firstChar = name.trim().toUpperCase().charAt(0);
         let secondChar = name.trim().toUpperCase().substring(0, 2);
-
         if (['L'].includes(firstChar) || secondChar === 'CH') return "मेष (Mesh)";
         if (['E', 'O', 'V', 'U'].includes(firstChar)) return "वृषभ (Vrishabh)";
-        if (['K', 'G', 'H'].includes(firstChar) || secondChar === 'CH') return "मिथुन (Mithun)";
+        if (['K', 'G', 'H'].includes(firstChar)) return "मिथुन (Mithun)";
         if (['H', 'D'].includes(firstChar)) return "कर्क (Kark)";
         if (['M', 'T'].includes(firstChar)) return "सिंह (Singh)";
-        if (['P', 'S', 'N', 'T'].includes(firstChar)) return "कन्या (Virgo)";
-        if (['R', 'T'].includes(firstChar)) return "तुला (Tula)";
+        if (['P', 'S', 'N'].includes(firstChar)) return "कन्या (Virgo)";
+        if (['R'].includes(firstChar)) return "तुला (Tula)";
         if (['N', 'Y'].includes(firstChar)) return "वृश्चिक (Scorpio)";
-        if (['Y', 'B', 'D', 'P'].includes(firstChar)) return "धनु (Dhanu)";
+        if (['B', 'D', 'P'].includes(firstChar)) return "धनु (Dhanu)";
         if (['J', 'K', 'G'].includes(firstChar)) return "मकर (Makar)";
-        if (['G', 'S', 'D'].includes(firstChar)) return "कुंभ (Kumbh)";
-        if (['D', 'T', 'J', 'C'].includes(firstChar)) return "मीन (Meen)";
+        if (['S', 'D'].includes(firstChar)) return "कुंभ (Kumbh)";
+        if (['C', 'J'].includes(firstChar)) return "मीन (Meen)";
         return "विशेष राशि";
     }
 
     const numerologyData = {
-        1: { planet: "सूर्य", traits: "आप एक निडर नेता हैं और स्वाभिमानी स्वभाव के हैं।" },
-        2: { planet: "चंद्रमा", traits: "आप बहुत शांत, भावुक और कल्पनाशील व्यक्ति हैं।" },
-        3: { planet: "बृहस्पति", traits: "आप ज्ञानी हैं और शिक्षा के क्षेत्र में उन्नति करेंगे।" },
-        4: { planet: "राहु", traits: "आप तेज दिमाग वाले हैं और अचानक सफलता प्राप्त करेंगे।" },
-        5: { planet: "बुध", traits: "आपकी वाणी प्रभावशाली है और आप व्यापार में कुशल हैं।" },
-        6: { planet: "शुक्र", traits: "आप विलासी जीवन और कला के बहुत प्रेमी व्यक्ति हैं।" },
-        7: { planet: "केतु", traits: "आप आध्यात्मिक और बहुत गहरी सोच रखने वाले व्यक्ति हैं।" },
-        8: { planet: "शनि", traits: "आप न्यायप्रिय हैं और कठिन परिश्रम से भाग्य बनाएंगे।" },
-        9: { planet: "मंगल", traits: "आप साहसी योद्धा हैं और चुनौतियों से कभी नहीं डरते।" }
+        1: { planet: "सूर्य", traits: "आप एक निडर नेता और स्वाभिमानी हैं।" },
+        2: { planet: "चंद्रमा", traits: "आप शांत, भावुक और कल्पनाशील हैं।" },
+        3: { planet: "बृहस्पति", traits: "आप ज्ञानी हैं और शिक्षा में उन्नति करेंगे।" },
+        4: { planet: "राहु", traits: "आप तेज दिमाग वाले और साहसी हैं।" },
+        5: { planet: "बुध", traits: "आपकी वाणी मीठी है और आप व्यापार में कुशल हैं।" },
+        6: { planet: "शुक्र", traits: "आप सुख-सुविधाओं और कला के प्रेमी हैं।" },
+        7: { planet: "केतु", traits: "आप आध्यात्मिक और गहरी सोच वाले व्यक्ति हैं।" },
+        8: { planet: "शनि", traits: "आप न्यायप्रिय और कठिन परिश्रमी हैं।" },
+        9: { planet: "मंगल", traits: "आप साहसी योद्धा हैं और निडर स्वभाव के हैं।" }
     };
 
     function speak(text) {
@@ -128,7 +233,7 @@
         const cleanText = text.replace(/<\/?[^>]+(>|$)/g, "");
         const utterance = new SpeechSynthesisUtterance(cleanText);
         utterance.lang = 'hi-IN';
-        utterance.rate = 0.85;
+        utterance.rate = 0.9;
         window.speechSynthesis.speak(utterance);
     }
 
@@ -148,36 +253,20 @@
         let reply = "";
         let upay = "";
 
-        // 1. शादी (विस्तृत जवाब)
         if (/(shadi|marriage|vivah|wedding|ब्याह|शादी|विवाह|रिश्ता)/.test(q)) {
-            const options = [
-                `बेटा ${userName}, आपके मन में शादी को लेकर काफी समय से चिंता चल रही है और परिवार का दबाव भी महसूस हो रहा है। आपकी कुंडली में विवाह का योग प्रबल है, लेकिन शुक्र और गुरु के कमजोर होने से देरी हो रही है। <b>2025 के अंत से 2026 के मध्य</b> के बीच शादी तय होने की पूरी संभावना है। जीवनसाथी बहुत ही समझदार और जिम्मेदार मिलेगा।`,
-                `विवाह भाव में शनि की दृष्टि के कारण कुछ रुकावटें आ रही हैं बेटा। लेकिन चिंता न करें, आने वाले 12 से 18 महीनों में एक बहुत अच्छा रिश्ता आपके द्वार पर आएगा जो आपके जीवन में आर्थिक सुधार और मानसिक शांति भी लाएगा।`
-            ];
-            reply = options[Math.floor(Math.random() * options.length)];
-            upay = "हर गुरुवार पीले वस्त्र पहनें, हल्दी का दान करें और 'ॐ गुरवे नमः' का 108 बार जाप करें।";
+            reply = `बेटा ${userName}, आपकी कुंडली में विवाह का योग प्रबल है, लेकिन शुक्र और गुरु के प्रभाव से कुछ देरी हो रही है। <b>2025 के अंत से 2026</b> के बीच शुभ योग बनेंगे।`;
+            upay = "गुरुवार को पीले वस्त्र पहनें और हल्दी का तिलक लगाएं।";
+        } else if (/(job|naukri|paisa|money|career|नौकरी|पैसा|काम|तरक्की)/.test(q)) {
+            reply = "करियर में बदलाव का समय आ गया है। अगले 6 महीनों में आपको नई जिम्मेदारी या पदोन्नति मिलने के योग हैं। रुका हुआ धन भी प्राप्त होगा।";
+            upay = "शनिवार को शनि देव के नाम का दीपक जलाएं।";
+        } else if (/(love|pyar|prem|girlfriend|boyfriend|प्यार|प्रेम)/.test(q)) {
+            reply = "रिश्तों में राहु की छाया है, जिससे गलतफहमियां हो रही हैं। धैर्य रखें, जल्द ही सब ठीक होगा।";
+            upay = "शुक्रवार को सफेद मिठाई का दान करें।";
+        } else {
+            reply = `बेटा ${userName}, ईश्वर पर विश्वास रखें, आपके ग्रह अब आपके पक्ष में मुड़ रहे हैं।`;
+            upay = "रोजाना हनुमान चालीसा का पाठ करें।";
         }
-        // 2. नौकरी/धन
-        else if (/(job|naukri|paisa|money|career|career|नौकरी|पैसा|काम|तरक्की)/.test(q)) {
-            reply = "करियर को लेकर आपका संघर्ष अब अंतिम चरण में है। कुंडली में दशमेश भाव जागृत हो रहा है, जिससे अगले 6 महीनों में आपको मनचाही सफलता या पदोन्नति मिलेगी। रुका हुआ धन भी वापस आएगा।";
-            upay = "शनिवार को पीपल के नीचे सरसों के तेल का दीपक जलाएं और हनुमान चालीसा पढ़ें।";
-        }
-        // 3. प्यार/रिश्ता
-        else if (/(love|pyar|prem|girlfriend|boyfriend|प्यार|प्रेम)/.test(q)) {
-            reply = "रिश्तों में राहु की छाया के कारण भ्रम और लड़ाई-झगड़े बढ़ रहे हैं। साथी पर विश्वास रखें और अपनी वाणी पर संयम रखें। शुक्र को मजबूत करने से आपका प्रेम जीवन फिर से मधुर हो जाएगा।";
-            upay = "शुक्रवार को किसी मंदिर में सफेद मिठाई चढ़ाएं।";
-        }
-        // 4. विदेश/सेहत/शत्रु (अन्य)
-        else if (/(videsh|visa|health|shatru|विदेश|बीमार|दुश्मन)/.test(q)) {
-            reply = "ग्रहों का गोचर बता रहा है कि आपकी बाधाएं जल्द दूर होंगी। विदेश यात्रा के योग बन रहे हैं और स्वास्थ्य में भी सुधार दिखेगा। शत्रुओं से घबराने की जरूरत नहीं है, वे स्वयं हार मान लेंगे।";
-            upay = "प्रतिदिन सूर्य को जल चढ़ाएं और केसर का तिलक लगाएं।";
-        }
-        else {
-            reply = `बेटा ${userName}, आपके ग्रह संकेत दे रहे हैं कि आने वाला समय आपके लिए शुभ फल लेकर आ रहा है। बस धैर्य रखें और ईश्वर पर विश्वास रखें।`;
-            upay = "रोजाना गायत्री मंत्र का जाप करें।";
-        }
-
-        return `${reply} <div class='upaay-box'>✨ दिव्य उपाय: ${upay}</div>`;
+        return `${reply} <div class='upaay-box'>✨ उपाय: ${upay}</div>`;
     }
 
     function handleSend() {
@@ -192,7 +281,7 @@
             if (step === 0) {
                 userName = val;
                 let rashi = getRashi(userName);
-                addMessage(`कल्याण हो ${userName} बेटा! आपके नाम के अनुसार आपकी राशि <b>${rashi}</b> है। अपनी जन्म तिथि (1-31) बताएं?`, 'bot');
+                addMessage(`कल्याण हो ${userName} बेटा! आपकी राशि <b>${rashi}</b> है। अपनी जन्म तिथि (1-31) बताएं?`, 'bot');
                 step++;
             } else if (step === 1) {
                 let day = parseInt(val.replace(/\D/g, ''));
@@ -200,12 +289,12 @@
                 let moolank = day;
                 while(moolank > 9) moolank = String(moolank).split('').reduce((a,b)=>parseInt(a)+parseInt(b),0);
                 let d = numerologyData[moolank];
-                addMessage(`आपका मूलांक <b>${moolank}</b> है और स्वामी <b>${d.planet}</b> हैं।<div class="detail-section"><b>स्वभाव:</b> ${d.traits}</div> अब अपना प्रश्न पूछें, मैं गणना कर रहा हूँ...`, 'bot');
+                addMessage(`आपका मूलांक <b>${moolank}</b> है और स्वामी <b>${d.planet}</b> हैं।<div class="detail-section"><b>स्वभाव:</b> ${d.traits}</div> अब अपना प्रश्न पूछें...`, 'bot');
                 step++;
             } else {
                 addMessage(getDetailedResponse(val), 'bot');
             }
-        }, 1200);
+        }, 1000);
     }
 
     document.getElementById('waLink').href = "whatsapp://send?text=नमस्ते! 🔱 सिद्ध AI पंडित जी से अपना भविष्य जानें: " + window.location.href;
