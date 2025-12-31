@@ -12,30 +12,53 @@
             --gold: #ffcc00; 
             --deep-saffron: #ff9933;
             --bg: #0b0b1a; 
-            --bot-bubble: rgba(26, 26, 46, 0.95); 
+            --bot-bubble: rgba(40, 40, 70, 0.85); /* गहरा रंग ताकि सफेद टेक्स्ट साफ दिखे */
             --user-bubble: #d90429; 
             --whatsapp: #25D366;
+            --text-white: #ffffff;
         }
         
         * { box-sizing: border-box; font-family: 'Segoe UI', 'Arial', sans-serif; margin: 0; padding: 0; }
         
-        /* मोबाइल के लिए फुल हाइट फिक्स */
         html, body { 
             height: 100%; 
             width: 100%; 
             background: var(--bg); 
             overflow: hidden; 
-            position: fixed; /* स्क्रॉल बाउंस रोकने के लिए */
+            position: fixed;
         }
 
-        body { display: flex; justify-content: center; align-items: center; }
+        /* --- Divine Background Animation --- */
+        body::before {
+            content: "";
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at center, rgba(255, 153, 51, 0.1) 0%, transparent 50%);
+            animation: pulse 10s infinite alternate;
+            z-index: -1;
+        }
+
+        @keyframes pulse {
+            0% { transform: translate(-25%, -25%) scale(1); opacity: 0.5; }
+            100% { transform: translate(-25%, -25%) scale(1.2); opacity: 0.8; }
+        }
+
+        /* सितारों वाला एनिमेशन */
+        .stars {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: url('https://www.transparenttextures.com/patterns/stardust.png');
+            opacity: 0.3;
+            z-index: 0;
+        }
 
         .mandala { 
             position: absolute; 
-            width: 70vw; 
-            max-width: 300px; 
-            opacity: 0.1; 
-            animation: rotate 80s linear infinite; 
+            width: 80vw; 
+            max-width: 400px; 
+            opacity: 0.15; 
+            animation: rotate 100s linear infinite; 
             z-index: 0; 
             pointer-events: none; 
             top: 50%; 
@@ -50,8 +73,8 @@
             height: 100%; 
             display: flex; 
             flex-direction: column; 
-            background: rgba(12, 12, 29, 0.9); 
-            backdrop-filter: blur(15px); 
+            background: rgba(12, 12, 29, 0.7); 
+            backdrop-filter: blur(10px); 
             border-left: 1px solid rgba(255, 204, 0, 0.3); 
             border-right: 1px solid rgba(255, 204, 0, 0.3); 
             z-index: 1;
@@ -61,40 +84,24 @@
         .header { 
             background: linear-gradient(to bottom, #ff9933, #ffcc00); 
             color: #331100; 
-            padding: env(safe-area-inset-top) 10px 10px 10px; 
+            padding: env(safe-area-inset-top) 10px 15px 10px; 
             text-align: center; 
             font-weight: 900; 
-            font-size: 1.1rem; 
-            box-shadow: 0 2px 10px rgba(0,0,0,0.5); 
+            font-size: 1.2rem; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.6); 
             flex-shrink: 0; 
+            text-shadow: 1px 1px 2px rgba(255,255,255,0.5);
         }
 
         .ad-container { 
             width: 100%; 
-            overflow: hidden; 
-            background: rgba(0,0,0,0.4); 
+            background: rgba(0,0,0,0.5); 
             min-height: 60px; 
             display: flex; 
             justify-content: center; 
             align-items: center;
             flex-shrink: 0;
-        }
-        
-        /* विज्ञापन को छोटा करने के लिए ताकि मोबाइल में फिट हो */
-        .ad-container iframe { transform: scale(0.8); transform-origin: center; }
-
-        .share-section { padding: 5px; text-align: center; background: rgba(255,255,255,0.05); flex-shrink: 0; }
-        .whatsapp-btn { 
-            background: var(--whatsapp); 
-            color: white; 
-            padding: 6px 15px; 
-            border-radius: 20px; 
-            text-decoration: none; 
-            font-weight: bold; 
-            font-size: 13px; 
-            display: inline-flex; 
-            align-items: center; 
-            gap: 5px; 
+            border-bottom: 1px solid rgba(255, 204, 0, 0.1);
         }
 
         #chat-window { 
@@ -103,64 +110,51 @@
             overflow-y: auto; 
             display: flex; 
             flex-direction: column; 
-            gap: 12px; 
-            -webkit-overflow-scrolling: touch; /* स्मूथ स्क्रॉल */
+            gap: 15px; 
         }
 
-        .msg-row { display: flex; width: 100%; align-items: flex-start; gap: 8px; animation: slideIn 0.3s ease; }
+        .msg-row { display: flex; width: 100%; align-items: flex-start; gap: 10px; animation: fadeIn 0.5s ease; }
         .user-row { flex-direction: row-reverse; }
-        @keyframes slideIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
 
-        .avatar { width: 35px; height: 35px; border-radius: 50%; border: 1px solid var(--gold); overflow: hidden; flex-shrink: 0; background: white;}
+        .avatar { width: 40px; height: 40px; border-radius: 50%; border: 2px solid var(--gold); overflow: hidden; flex-shrink: 0; box-shadow: 0 0 10px var(--gold); }
         .avatar img { width: 100%; height: 100%; object-fit: cover; }
 
-        .msg { max-width: 80%; padding: 10px 14px; border-radius: 15px; font-size: 14px; line-height: 1.5; word-wrap: break-word; }
-        .bot { background: var(--bot-bubble); border-top-left-radius: 2px; border: 1px solid rgba(255,204,0,0.3); }
+        .msg { max-width: 80%; padding: 12px 16px; border-radius: 18px; font-size: 15px; line-height: 1.6; color: var(--text-white); }
+        .bot { 
+            background: var(--bot-bubble); 
+            border: 1px solid rgba(255,204,0,0.4); 
+            border-top-left-radius: 2px;
+            box-shadow: 2px 2px 15px rgba(0,0,0,0.3);
+        }
         .user { background: linear-gradient(135deg, #d90429, #8d021f); border-top-right-radius: 2px; }
 
-        .detail-section { margin-top: 8px; font-size: 13px; background: rgba(255,153,51,0.1); padding: 10px; border-radius: 8px; border-left: 3px solid var(--gold); }
-        .upaay-box { margin-top: 10px; color: #ffcc00; font-weight: bold; background: rgba(255,204,0,0.1); padding: 8px; border-radius: 6px; border-left: 3px solid var(--gold); font-size: 13px; }
+        .detail-section { margin-top: 10px; background: rgba(255,204,0,0.15); padding: 12px; border-radius: 10px; border-left: 4px solid var(--gold); color: #fff; }
+        .upaay-box { margin-top: 12px; color: var(--gold); font-weight: bold; background: rgba(0,0,0,0.3); padding: 10px; border-radius: 8px; border: 1px dashed var(--gold); }
 
         .input-area { 
-            padding: 10px 10px calc(10px + env(safe-area-inset-bottom)) 10px; 
+            padding: 12px 12px calc(12px + env(safe-area-inset-bottom)) 12px; 
             background: #050510; 
             display: flex; 
-            gap: 8px; 
-            border-top: 1px solid var(--gold); 
-            flex-shrink: 0; 
+            gap: 10px; 
+            border-top: 2px solid var(--gold); 
         }
         
         input { 
-            flex: 1; 
-            padding: 10px 15px; 
-            border-radius: 20px; 
-            border: 1px solid var(--gold); 
-            background: #1a1a2e; 
-            color: white; 
-            outline: none; 
-            font-size: 16px; /* मोबाइल पर जूम रोकने के लिए 16px जरूरी है */
+            flex: 1; padding: 12px 18px; border-radius: 25px; border: 1px solid var(--gold); 
+            background: #1a1a2e; color: white; outline: none; font-size: 16px;
         }
         
         button { 
-            background: var(--gold); 
-            border: none; 
-            padding: 0 15px; 
-            border-radius: 20px; 
-            font-weight: bold; 
-            color: #000; 
-            cursor: pointer; 
-            font-size: 14px;
+            background: linear-gradient(to bottom, #ffcc00, #ff9933); 
+            border: none; padding: 0 20px; border-radius: 25px; font-weight: bold; color: #331100; cursor: pointer;
         }
 
-        /* छोटे मोबाइल के लिए फिक्स */
-        @media (max-width: 360px) {
-            .msg { max-width: 85%; font-size: 13px; }
-            .header { font-size: 1rem; }
-        }
     </style>
 </head>
 <body>
 
+<div class="stars"></div>
 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Yantra_svg.svg/1024px-Yantra_svg.svg.png" class="mandala">
 <audio id="bgMusic" loop><source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-17.mp3" type="audio/mpeg"></audio>
 
@@ -174,22 +168,11 @@
         <script type="text/javascript" src="https://www.highperformanceformat.com/05f7cf478e6056f2505d1e201f281be8/invoke.js"></script>
     </div>
 
-    <div class="share-section">
-        <a id="waLink" href="#" class="whatsapp-btn">🟢 WhatsApp पर शेयर करें</a>
-    </div>
-
     <div id="chat-window"></div>
 
-    <div class="ad-container" style="border-top: 1px solid var(--gold);">
-        <script type="text/javascript">
-            atOptions = {'key' : '05f7cf478e6056f2505d1e201f281be8','format' : 'iframe','height' : 60,'width' : 468,'params' : {}};
-        </script>
-        <script type="text/javascript" src="https://www.highperformanceformat.com/05f7cf478e6056f2505d1e201f281be8/invoke.js"></script>
-    </div>
-    
     <div class="input-area">
-        <input type="text" id="userInput" placeholder="अपना नाम लिखें..." autocomplete="off">
-        <button id="sendBtn">भेजें</button>
+        <input type="text" id="userInput" placeholder="अपना नाम या प्रश्न लिखें..." autocomplete="off">
+        <button id="sendBtn">पूछें</button>
     </div>
 </div>
 
@@ -198,21 +181,22 @@
     let userName = "";
     let musicStarted = false;
 
+    // सटीक राशि लॉजिक
     function getRashi(name) {
-        let firstChar = name.trim().toUpperCase().charAt(0);
-        let secondChar = name.trim().toUpperCase().substring(0, 2);
-        if (['L'].includes(firstChar) || secondChar === 'CH') return "मेष (Mesh)";
-        if (['E', 'O', 'V', 'U'].includes(firstChar)) return "वृषभ (Vrishabh)";
-        if (['K', 'G', 'H'].includes(firstChar)) return "मिथुन (Mithun)";
-        if (['H', 'D'].includes(firstChar)) return "कर्क (Kark)";
-        if (['M', 'T'].includes(firstChar)) return "सिंह (Singh)";
-        if (['P', 'S', 'N'].includes(firstChar)) return "कन्या (Virgo)";
-        if (['R'].includes(firstChar)) return "तुला (Tula)";
-        if (['N', 'Y'].includes(firstChar)) return "वृश्चिक (Scorpio)";
-        if (['B', 'D', 'P'].includes(firstChar)) return "धनु (Dhanu)";
-        if (['J', 'K', 'G'].includes(firstChar)) return "मकर (Makar)";
-        if (['S', 'D'].includes(firstChar)) return "कुंभ (Kumbh)";
-        if (['C', 'J'].includes(firstChar)) return "मीन (Meen)";
+        let L = name.trim().toUpperCase().charAt(0);
+        let S = name.trim().toUpperCase().substring(0, 2);
+        if (['L'].includes(L) || S === 'CH') return "मेष (Mesh)";
+        if (['E', 'O', 'V', 'U'].includes(L)) return "वृषभ (Vrishabh)";
+        if (['K', 'G', 'H'].includes(L)) return "मिथुन (Mithun)";
+        if (['H', 'D'].includes(L)) return "कर्क (Kark)";
+        if (['M', 'T'].includes(L)) return "सिंह (Singh)";
+        if (['P', 'S', 'N'].includes(L)) return "कन्या (Virgo)";
+        if (['R'].includes(L)) return "तुला (Tula)";
+        if (['N', 'Y'].includes(L)) return "वृश्चिक (Scorpio)";
+        if (['B', 'D', 'P'].includes(L)) return "धनु (Dhanu)";
+        if (['J', 'K', 'G'].includes(L)) return "मकर (Makar)";
+        if (['S', 'D'].includes(L)) return "कुंभ (Kumbh)";
+        if (['C', 'J'].includes(L)) return "मीन (Meen)";
         return "विशेष राशि";
     }
 
@@ -221,11 +205,11 @@
         2: { planet: "चंद्रमा", traits: "आप शांत, भावुक और कल्पनाशील हैं।" },
         3: { planet: "बृहस्पति", traits: "आप ज्ञानी हैं और शिक्षा में उन्नति करेंगे।" },
         4: { planet: "राहु", traits: "आप तेज दिमाग वाले और साहसी हैं।" },
-        5: { planet: "बुध", traits: "आपकी वाणी मीठी है और आप व्यापार में कुशल हैं।" },
+        5: { planet: "बुध", traits: "आपकी वाणी मीठी है और व्यापार में कुशल हैं।" },
         6: { planet: "शुक्र", traits: "आप सुख-सुविधाओं और कला के प्रेमी हैं।" },
-        7: { planet: "केतु", traits: "आप आध्यात्मिक और गहरी सोच वाले व्यक्ति हैं।" },
+        7: { planet: "केतु", traits: "आप आध्यात्मिक और गहरी सोच वाले हैं।" },
         8: { planet: "शनि", traits: "आप न्यायप्रिय और कठिन परिश्रमी हैं।" },
-        9: { planet: "मंगल", traits: "आप साहसी योद्धा हैं और निडर स्वभाव के हैं।" }
+        9: { planet: "मंगल", traits: "आप साहसी योद्धा और निडर हैं।" }
     };
 
     function speak(text) {
@@ -253,18 +237,15 @@
         let reply = "";
         let upay = "";
 
-        if (/(shadi|marriage|vivah|wedding|ब्याह|शादी|विवाह|रिश्ता)/.test(q)) {
-            reply = `बेटा ${userName}, आपकी कुंडली में विवाह का योग प्रबल है, लेकिन शुक्र और गुरु के प्रभाव से कुछ देरी हो रही है। <b>2025 के अंत से 2026</b> के बीच शुभ योग बनेंगे।`;
-            upay = "गुरुवार को पीले वस्त्र पहनें और हल्दी का तिलक लगाएं।";
-        } else if (/(job|naukri|paisa|money|career|नौकरी|पैसा|काम|तरक्की)/.test(q)) {
-            reply = "करियर में बदलाव का समय आ गया है। अगले 6 महीनों में आपको नई जिम्मेदारी या पदोन्नति मिलने के योग हैं। रुका हुआ धन भी प्राप्त होगा।";
-            upay = "शनिवार को शनि देव के नाम का दीपक जलाएं।";
-        } else if (/(love|pyar|prem|girlfriend|boyfriend|प्यार|प्रेम)/.test(q)) {
-            reply = "रिश्तों में राहु की छाया है, जिससे गलतफहमियां हो रही हैं। धैर्य रखें, जल्द ही सब ठीक होगा।";
-            upay = "शुक्रवार को सफेद मिठाई का दान करें।";
+        if (/(shadi|marriage|vivah|wedding|शादी|विवाह)/.test(q)) {
+            reply = `बेटा ${userName}, आपकी कुंडली में विवाह का शुभ योग <b>2025 के अंत से 2026</b> के बीच बन रहा है। शुक्र की स्थिति अनुकूल हो रही है।`;
+            upay = "गुरुवार को भगवान विष्णु को पीले फूल चढ़ाएं।";
+        } else if (/(job|naukri|career|नौकरी|काम)/.test(q)) {
+            reply = "करियर में पदोन्नति के प्रबल योग हैं। अगले 6 महीने आपके लिए अत्यंत लाभकारी सिद्ध होंगे।";
+            upay = "शनिवार को शनि चालीसा का पाठ करें।";
         } else {
-            reply = `बेटा ${userName}, ईश्वर पर विश्वास रखें, आपके ग्रह अब आपके पक्ष में मुड़ रहे हैं।`;
-            upay = "रोजाना हनुमान चालीसा का पाठ करें।";
+            reply = `बेटा ${userName}, आपके ग्रह अब आपके पक्ष में आ रहे हैं। सकारात्मक रहें।`;
+            upay = "रोजाना सूर्य देव को जल अर्पित करें।";
         }
         return `${reply} <div class='upaay-box'>✨ उपाय: ${upay}</div>`;
     }
@@ -297,7 +278,6 @@
         }, 1000);
     }
 
-    document.getElementById('waLink').href = "whatsapp://send?text=नमस्ते! 🔱 सिद्ध AI पंडित जी से अपना भविष्य जानें: " + window.location.href;
     document.getElementById('sendBtn').onclick = handleSend;
     document.getElementById('userInput').onkeypress = (e) => { if(e.key==='Enter') handleSend(); };
     window.onload = () => { setTimeout(() => addMessage("प्रणाम! मैं सिद्ध AI पंडित जी हूँ। अपना नाम बताएं बेटा?", 'bot'), 800); };
