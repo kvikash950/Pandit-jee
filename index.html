@@ -12,7 +12,7 @@
             --gold: #ffcc00; 
             --deep-saffron: #ff9933;
             --bg: #0b0b1a; 
-            --bot-bubble: rgba(40, 40, 70, 0.85); /* गहरा रंग ताकि सफेद टेक्स्ट साफ दिखे */
+            --bot-bubble: rgba(30, 30, 60, 0.9); 
             --user-bubble: #d90429; 
             --whatsapp: #25D366;
             --text-white: #ffffff;
@@ -21,123 +21,90 @@
         * { box-sizing: border-box; font-family: 'Segoe UI', 'Arial', sans-serif; margin: 0; padding: 0; }
         
         html, body { 
-            height: 100%; 
-            width: 100%; 
+            height: 100%; width: 100%; 
             background: var(--bg); 
             overflow: hidden; 
             position: fixed;
         }
 
-        /* --- Divine Background Animation --- */
+        /* --- Divine Background Animations --- */
         body::before {
-            content: "";
-            position: absolute;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle at center, rgba(255, 153, 51, 0.1) 0%, transparent 50%);
-            animation: pulse 10s infinite alternate;
-            z-index: -1;
+            content: ""; position: absolute; width: 200%; height: 200%;
+            background: radial-gradient(circle at center, rgba(255, 153, 51, 0.15) 0%, transparent 60%);
+            animation: pulse 12s infinite alternate; z-index: -1;
         }
 
         @keyframes pulse {
-            0% { transform: translate(-25%, -25%) scale(1); opacity: 0.5; }
-            100% { transform: translate(-25%, -25%) scale(1.2); opacity: 0.8; }
+            0% { transform: translate(-25%, -25%) scale(1); opacity: 0.4; }
+            100% { transform: translate(-25%, -25%) scale(1.3); opacity: 0.7; }
         }
 
-        /* सितारों वाला एनिमेशन */
         .stars {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             background: url('https://www.transparenttextures.com/patterns/stardust.png');
-            opacity: 0.3;
-            z-index: 0;
+            opacity: 0.4; z-index: 0; pointer-events: none;
         }
 
         .mandala { 
-            position: absolute; 
-            width: 80vw; 
-            max-width: 400px; 
-            opacity: 0.15; 
-            animation: rotate 100s linear infinite; 
-            z-index: 0; 
-            pointer-events: none; 
-            top: 50%; 
-            left: 50%; 
+            position: absolute; width: 85vw; max-width: 450px; opacity: 0.12; 
+            animation: rotate 120s linear infinite; z-index: 0; 
+            pointer-events: none; top: 50%; left: 50%; 
             transform: translate(-50%, -50%); 
         }
         @keyframes rotate { from { transform: translate(-50%, -50%) rotate(0deg); } to { transform: translate(-50%, -50%) rotate(360deg); } }
 
         #app-container { 
-            width: 100%; 
-            max-width: 500px; 
-            height: 100%; 
-            display: flex; 
-            flex-direction: column; 
-            background: rgba(12, 12, 29, 0.7); 
-            backdrop-filter: blur(10px); 
-            border-left: 1px solid rgba(255, 204, 0, 0.3); 
-            border-right: 1px solid rgba(255, 204, 0, 0.3); 
-            z-index: 1;
-            position: relative;
+            width: 100%; max-width: 500px; height: 100%; 
+            display: flex; flex-direction: column; 
+            background: rgba(12, 12, 29, 0.75); backdrop-filter: blur(12px); 
+            border-left: 1px solid rgba(255, 204, 0, 0.2); 
+            border-right: 1px solid rgba(255, 204, 0, 0.2); 
+            z-index: 1; position: relative;
         }
 
         .header { 
             background: linear-gradient(to bottom, #ff9933, #ffcc00); 
-            color: #331100; 
-            padding: env(safe-area-inset-top) 10px 15px 10px; 
-            text-align: center; 
-            font-weight: 900; 
-            font-size: 1.2rem; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.6); 
-            flex-shrink: 0; 
-            text-shadow: 1px 1px 2px rgba(255,255,255,0.5);
+            color: #331100; padding: env(safe-area-inset-top) 10px 15px 10px; 
+            text-align: center; font-weight: 900; font-size: 1.2rem; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.6); flex-shrink: 0; 
         }
 
+        /* Banner Ad Containers */
         .ad-container { 
-            width: 100%; 
-            background: rgba(0,0,0,0.5); 
-            min-height: 60px; 
-            display: flex; 
-            justify-content: center; 
-            align-items: center;
-            flex-shrink: 0;
-            border-bottom: 1px solid rgba(255, 204, 0, 0.1);
+            width: 100%; background: rgba(0,0,0,0.6); 
+            min-height: 65px; display: flex; justify-content: center; 
+            align-items: center; flex-shrink: 0; 
+            border-bottom: 1px solid rgba(255, 204, 0, 0.1); overflow: hidden;
         }
+        .ad-container iframe { transform: scale(0.85); }
 
         #chat-window { 
-            flex: 1; 
-            padding: 15px; 
-            overflow-y: auto; 
-            display: flex; 
-            flex-direction: column; 
-            gap: 15px; 
+            flex: 1; padding: 15px; overflow-y: auto; 
+            display: flex; flex-direction: column; gap: 15px; 
+            scroll-behavior: smooth; -webkit-overflow-scrolling: touch;
         }
 
-        .msg-row { display: flex; width: 100%; align-items: flex-start; gap: 10px; animation: fadeIn 0.5s ease; }
+        .msg-row { display: flex; width: 100%; align-items: flex-start; gap: 10px; animation: fadeIn 0.4s ease-out; }
         .user-row { flex-direction: row-reverse; }
-        @keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        .avatar { width: 40px; height: 40px; border-radius: 50%; border: 2px solid var(--gold); overflow: hidden; flex-shrink: 0; box-shadow: 0 0 10px var(--gold); }
+        .avatar { width: 42px; height: 42px; border-radius: 50%; border: 2px solid var(--gold); overflow: hidden; flex-shrink: 0; box-shadow: 0 0 8px var(--gold); background: #fff;}
         .avatar img { width: 100%; height: 100%; object-fit: cover; }
 
-        .msg { max-width: 80%; padding: 12px 16px; border-radius: 18px; font-size: 15px; line-height: 1.6; color: var(--text-white); }
+        .msg { max-width: 80%; padding: 12px 16px; border-radius: 18px; font-size: 15px; line-height: 1.6; color: var(--text-white); position: relative; }
         .bot { 
             background: var(--bot-bubble); 
-            border: 1px solid rgba(255,204,0,0.4); 
+            border: 1px solid rgba(255,204,0,0.3); 
             border-top-left-radius: 2px;
-            box-shadow: 2px 2px 15px rgba(0,0,0,0.3);
         }
-        .user { background: linear-gradient(135deg, #d90429, #8d021f); border-top-right-radius: 2px; }
+        .user { background: linear-gradient(135deg, #d90429, #8d021f); border-top-right-radius: 2px; box-shadow: 2px 2px 10px rgba(0,0,0,0.3); }
 
-        .detail-section { margin-top: 10px; background: rgba(255,204,0,0.15); padding: 12px; border-radius: 10px; border-left: 4px solid var(--gold); color: #fff; }
-        .upaay-box { margin-top: 12px; color: var(--gold); font-weight: bold; background: rgba(0,0,0,0.3); padding: 10px; border-radius: 8px; border: 1px dashed var(--gold); }
+        .detail-section { margin-top: 10px; background: rgba(255,204,0,0.1); padding: 12px; border-radius: 10px; border-left: 4px solid var(--gold); font-size: 14px; color: #eee; }
+        .upaay-box { margin-top: 12px; color: var(--gold); font-weight: bold; background: rgba(0,0,0,0.4); padding: 10px; border-radius: 8px; border: 1px dashed var(--gold); font-size: 14px; }
 
         .input-area { 
             padding: 12px 12px calc(12px + env(safe-area-inset-bottom)) 12px; 
-            background: #050510; 
-            display: flex; 
-            gap: 10px; 
-            border-top: 2px solid var(--gold); 
+            background: #050510; display: flex; gap: 10px; border-top: 2px solid var(--gold); 
         }
         
         input { 
@@ -147,8 +114,10 @@
         
         button { 
             background: linear-gradient(to bottom, #ffcc00, #ff9933); 
-            border: none; padding: 0 20px; border-radius: 25px; font-weight: bold; color: #331100; cursor: pointer;
+            border: none; padding: 0 20px; border-radius: 25px; 
+            font-weight: bold; color: #331100; cursor: pointer; transition: 0.3s;
         }
+        button:active { transform: scale(0.9); }
 
     </style>
 </head>
@@ -170,6 +139,13 @@
 
     <div id="chat-window"></div>
 
+    <div class="ad-container" style="border-top: 1px solid rgba(255,204,0,0.1); border-bottom: none;">
+        <script type="text/javascript">
+            atOptions = {'key' : '05f7cf478e6056f2505d1e201f281be8','format' : 'iframe','height' : 60,'width' : 468,'params' : {}};
+        </script>
+        <script type="text/javascript" src="https://www.highperformanceformat.com/05f7cf478e6056f2505d1e201f281be8/invoke.js"></script>
+    </div>
+
     <div class="input-area">
         <input type="text" id="userInput" placeholder="अपना नाम या प्रश्न लिखें..." autocomplete="off">
         <button id="sendBtn">पूछें</button>
@@ -181,7 +157,7 @@
     let userName = "";
     let musicStarted = false;
 
-    // सटीक राशि लॉजिक
+    // सटीक राशि लॉजिक (A-Z)
     function getRashi(name) {
         let L = name.trim().toUpperCase().charAt(0);
         let S = name.trim().toUpperCase().substring(0, 2);
@@ -217,7 +193,7 @@
         const cleanText = text.replace(/<\/?[^>]+(>|$)/g, "");
         const utterance = new SpeechSynthesisUtterance(cleanText);
         utterance.lang = 'hi-IN';
-        utterance.rate = 0.9;
+        utterance.rate = 0.95;
         window.speechSynthesis.speak(utterance);
     }
 
@@ -237,21 +213,32 @@
         let reply = "";
         let upay = "";
 
-        if (/(shadi|marriage|vivah|wedding|शादी|विवाह)/.test(q)) {
-            reply = `बेटा ${userName}, आपकी कुंडली में विवाह का शुभ योग <b>2025 के अंत से 2026</b> के बीच बन रहा है। शुक्र की स्थिति अनुकूल हो रही है।`;
-            upay = "गुरुवार को भगवान विष्णु को पीले फूल चढ़ाएं।";
-        } else if (/(job|naukri|career|नौकरी|काम)/.test(q)) {
-            reply = "करियर में पदोन्नति के प्रबल योग हैं। अगले 6 महीने आपके लिए अत्यंत लाभकारी सिद्ध होंगे।";
-            upay = "शनिवार को शनि चालीसा का पाठ करें।";
+        if (/(shadi|marriage|vivah|wedding|शादी|विवाह|रिश्ता)/.test(q)) {
+            reply = `बेटा ${userName}, आपकी कुंडली में विवाह का शुभ योग <b>2025 के अंत से 2026</b> के बीच बहुत प्रबल है। सातवें भाव में गुरु की दृष्टि से एक सुयोग्य जीवनसाथी मिलेगा।`;
+            upay = "गुरुवार को गाय को चने की दाल और गुड़ खिलाएं।";
+        } else if (/(job|naukri|career|business|नौकरी|काम|व्यापार)/.test(q)) {
+            reply = "करियर में बड़ा परिवर्तन आने वाला है। अगले 4 से 8 महीनों में आपको नया अवसर या तरक्की मिलेगी। सूर्य की स्थिति मान-सम्मान दिलाएगी।";
+            upay = "प्रतिदिन सूर्य नारायण को जल चढ़ाएं।";
+        } else if (/(love|pyar|prem|girlfriend|boyfriend|प्यार|प्रेम)/.test(q)) {
+            reply = "प्रेम संबंधों में अभी राहु का प्रभाव है जिससे भ्रम पैदा हो रहा है। संयम रखें, शुक्र की दशा सुधरते ही रिश्तों में मधुरता आएगी।";
+            upay = "शुक्रवार को मंदिर में मिश्री का दान करें।";
+        } else if (/(money|paisa|amir|dhun|पैसा|अमीर|धन)/.test(q)) {
+            reply = "आर्थिक स्थिति अब धीरे-धीरे मजबूत होगी। फंसा हुआ धन वापस मिलने के योग हैं। मेहनत का फल मिलने का समय शुरू हो गया है।";
+            upay = "शुक्रवार को श्री सूक्त का पाठ करें।";
         } else {
-            reply = `बेटा ${userName}, आपके ग्रह अब आपके पक्ष में आ रहे हैं। सकारात्मक रहें।`;
-            upay = "रोजाना सूर्य देव को जल अर्पित करें।";
+            reply = `बेटा ${userName}, ग्रहों की चाल बता रही है कि आपकी समस्या का समाधान शीघ्र होगा। ईश्वर पर पूर्ण विश्वास रखें।`;
+            upay = "नित्य हनुमान चालीसा का पाठ करें।";
         }
-        return `${reply} <div class='upaay-box'>✨ उपाय: ${upay}</div>`;
+        return `${reply} <div class='upaay-box'>✨ दिव्य उपाय: ${upay}</div>`;
     }
 
     function handleSend() {
-        if (!musicStarted) { const music = document.getElementById('bgMusic'); music.volume = 0.05; music.play().catch(()=>{}); musicStarted = true; }
+        if (!musicStarted) { 
+            const music = document.getElementById('bgMusic'); 
+            music.volume = 0.05; 
+            music.play().catch(()=>{}); 
+            musicStarted = true; 
+        }
         const input = document.getElementById('userInput');
         const val = input.value.trim();
         if (!val) return;
@@ -262,15 +249,15 @@
             if (step === 0) {
                 userName = val;
                 let rashi = getRashi(userName);
-                addMessage(`कल्याण हो ${userName} बेटा! आपकी राशि <b>${rashi}</b> है। अपनी जन्म तिथि (1-31) बताएं?`, 'bot');
+                addMessage(`कल्याण हो ${userName} बेटा! आपकी राशि <b>${rashi}</b> है। अपनी जन्म तिथि (1-31 के बीच) बताएं?`, 'bot');
                 step++;
             } else if (step === 1) {
                 let day = parseInt(val.replace(/\D/g, ''));
-                if (!day || day < 1 || day > 31) { addMessage("बेटा, सही तारीख (1-31) बताएं।", 'bot'); return; }
+                if (!day || day < 1 || day > 31) { addMessage("बेटा, सही तारीख (1-31) बताएं ताकि मैं गणना कर सकूँ।", 'bot'); return; }
                 let moolank = day;
                 while(moolank > 9) moolank = String(moolank).split('').reduce((a,b)=>parseInt(a)+parseInt(b),0);
                 let d = numerologyData[moolank];
-                addMessage(`आपका मूलांक <b>${moolank}</b> है और स्वामी <b>${d.planet}</b> हैं।<div class="detail-section"><b>स्वभाव:</b> ${d.traits}</div> अब अपना प्रश्न पूछें...`, 'bot');
+                addMessage(`आपका मूलांक <b>${moolank}</b> है और स्वामी <b>${d.planet}</b> हैं।<div class="detail-section"><b>स्वभाव:</b> ${d.traits}</div> अब अपना प्रश्न पूछें, मैं आपकी कुंडली देख रहा हूँ...`, 'bot');
                 step++;
             } else {
                 addMessage(getDetailedResponse(val), 'bot');
